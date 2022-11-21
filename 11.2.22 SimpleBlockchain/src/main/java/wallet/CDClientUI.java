@@ -43,6 +43,7 @@ public class CDClientUI extends javax.swing.JFrame {
      */
     public CDClientUI() {
         initComponents();
+        balanceCoins.setText(String.valueOf(walletA.getBalance()));
         //holder = new PlaceHolder(payToTextField, "Enter a Tech Tokens address (e.g. 2EE57059EE6D2AD31EADB385C2282D342971B308AE418)");
         //holder = new PlaceHolder(labelTextField, "Enter a label for this address to label the transaction");
     }
@@ -619,6 +620,7 @@ public class CDClientUI extends javax.swing.JFrame {
         }
         addBlock(tempBlock.getHash(),tempBlock);
         System.out.println(StringUtil.getJson(Parameters.UTXOs));
+        
         /////////////////////////////////////////////////////////////server.getTransaction()
 //        temp = Parameters.blockchain;
 //        set = temp.entrySet();
@@ -631,7 +633,8 @@ public class CDClientUI extends javax.swing.JFrame {
 //                //System.out.println(p.getHash());
 //                System.out.println(tempBlock);
 //        }
-        server.connect("137.198.12.88", 8888);
+       // HERE LOOK HERE 
+       server.connect("137.198.12.88", 8888);
     }//GEN-LAST:event_sendCoinBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
@@ -639,15 +642,21 @@ public class CDClientUI extends javax.swing.JFrame {
         
         Gson gson = new Gson();
         /////////////////////////////////////////////////////////////server.getTransaction()
-        LinkedHashMap<String, TransactionOutput> netParamUTXOs = gson.fromJson(server.getTransaction(), new TypeToken<LinkedHashMap<String, TransactionOutput>>() {}.getType());
-        System.out.println("Net: " + netParamUTXOs.size() + "\nActual: " + Parameters.UTXOs.size());
-        if(netParamUTXOs.size() > Parameters.UTXOs.size())
-        {
-            Parameters.UTXOs = netParamUTXOs;
-            System.out.println(StringUtil.getJson(Parameters.UTXOs));
-        }
+            LinkedHashMap<String, TransactionOutput> netParamUTXOs = new LinkedHashMap<String, TransactionOutput>();
+            System.out.println("Net: " + netParamUTXOs.size() + "\nActual: " + Parameters.UTXOs.size());
+            netParamUTXOs = gson.fromJson(server.getTransaction(), new TypeToken<LinkedHashMap<String, TransactionOutput>>() {}.getType());
+            if (netParamUTXOs != null){
+                if(netParamUTXOs.size() > Parameters.UTXOs.size()){
+                    Parameters.UTXOs = netParamUTXOs;
+                    System.out.println(StringUtil.getJson(Parameters.UTXOs));
+                }
+            }
+            
         balanceCoins.setText(String.valueOf(walletA.getBalance()));
-                LinkedHashMap<String, Block> obj = gson.fromJson(server.getBlockChain(), new TypeToken<LinkedHashMap<String, Block>>() {}.getType());
+                LinkedHashMap<String, Block> obj = new LinkedHashMap<String, Block>();
+                if (null != gson.fromJson(server.getBlockChain(), new TypeToken<LinkedHashMap<String, Block>>() {}.getType())){
+                 obj = gson.fromJson(server.getBlockChain(), new TypeToken<LinkedHashMap<String, Block>>() {}.getType());
+                }
 		if(obj.size() > Parameters.UTXOs.size())
                 {
                     Parameters.blockchain = obj;
@@ -655,7 +664,7 @@ public class CDClientUI extends javax.swing.JFrame {
                 for (Map.Entry<String, Block> entry : Parameters.blockchain.entrySet()) {
                     System.out.println(entry.getValue());
                 }
-                
+        transactionCount.setText(""+ Parameters.UTXOs.size());
        server.connect("137.198.12.88", 8888);
         
         System.out.println("client "+Parameters.UTXOs);
@@ -733,7 +742,7 @@ public class CDClientUI extends javax.swing.JFrame {
 		//Create wallets:
 		walletA = new Wallet();
                 
-		Wallet walletB = new Wallet();		
+		//Wallet walletB = new Wallet();		
 		Wallet wallet = new Wallet();
 //              
                 //Print transaction ids
