@@ -21,7 +21,7 @@ Open NetBeans and Open "Working Code" directory as a project
 ## SetUp
 1. On Computer 1, run the project in NetBeans on Computer 1. Create an Account if you do not have one already, then login. You will be prompted for whether you are computer 1 or 2, please type in "1" or "Computer 1". You have successfully set up Computer 1. 
 
-2. On Computer 2, run the project in NetBeans on Computer 2. Create an Account if you do not have one already, then login. You will be prompted for whether you are computer 1 or 2, please type in "2" or "Computer 2". You have sucessfully set up Computer 2. 
+2. On Computer 2, run the project in NetBeans on Computer 2. Create an Account if you do not have one already, then login. You will be prompted for whether you are computer 1 or 2, please type in "2" or "Computer 2". You will be prompted for Computer 1's IP address(enter this without spaces) You have sucessfully set up Computer 2. 
 
 3. Click Overview at the top of the Page to get an Overview of your Wallet. The balance, number of transactions and pending amount of coins being verified are displayed on this page.
 
