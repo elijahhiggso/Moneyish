@@ -1,7 +1,7 @@
 # Welecome to Moneyish
 
 ## Description  ```Beta Version```
-Moneyish is a simple blockchain cryptocurrency with a bitcoin core. These are focused around 4 key 4 components:
+Moneyish is a simple blockchain cryptocurrency with a bitcoin core. These are focused around 4 key components:
 - Wallet [Wallet.java]
 - Miner 
 - Peer to Peer Network 
