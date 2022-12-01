@@ -9,7 +9,9 @@ Moneyish is a simple blockchain cryptocurrency with a bitcoin core. These are fo
 
 The [CDCLientUI.java] serves as the main GUI for Moneyish's wallet. 
 
-The [LoginPage.java] serves as the start Login Page for Moneyish
+The [LoginPage.java] serves as the start Login Page for Moneyish.
+
+The [AppTest.java] serves as the Unit Testing File for Moneyish.
 
 ## How to Install
 Download and Install [NetBeans IDE](https://netbeans.apache.org/)
