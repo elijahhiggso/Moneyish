@@ -25,10 +25,9 @@ Open NetBeans and Open "Working Code" directory as a project
 
 3. Click Overview at the top of the Page to get an Overview of your Wallet. The balance, number of transactions and pending amount of coins being verified are displayed on this page.
 
-
 4. Click Send at the top of the Page to send Coins. Fill in the public key of the opposite machine for "Send To", Enter a Label for your Transaction and enter how much you would like to send. Finally press send to send all of your Coins to the other other computer.
 
-
+5. Click Transaction at the top of the Page to view your transcatcion. 
 ## Debugging
 Common Errors that were experienced in testing. Be mindful this project is still in early development.
 
