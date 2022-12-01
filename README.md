@@ -1,53 +1,39 @@
-# Moneyish
+# Welecome to Moneyish
 
 ## Description  ```Beta Version```
 Moneyish is a simple blockchain cryptocurrency with a bitcoin core. These are focused around 4 key 4 components:
-- Wallet 
-- Miner
-- Peer to Peer Network
-- BlockChain
+- Wallet [Wallet.java]
+- Miner 
+- Peer to Peer Network 
+- BlockChain [Parameters.java]
 
 The [CDCLientUI.java] serves as the main GUI for Moneyish's wallet. 
 
 The [LoginPage.java] serves as the start Login Page for Moneyish
 
-The [Main.java] simulates two people with wallets to send coins to one another. This also runs a local P2P.
-
 ## How to Install
 Download and Install [NetBeans IDE](https://netbeans.apache.org/)
 
-Download this Github Project and Load it onto your NetBeans 
+Download or Clone this github repository's code
+
+Open NetBeans and Open "Working Code" directory as a project
 
 ## SetUp
-1. Before running, on Computer 1 , open CDClientUI.java and change the server and client IP's to the other computer's IP. Do the same for Computer 2. (Look at Lines
-570, 595, 758, 763)
+1. On Computer 1, run the project in NetBeans on Computer 1. Create an Account if you do not have one already, then login. You will be prompted for whether you are computer 1 or 2, please type in "1" or "Computer 1". You have successfully set up Computer 1. 
 
-2. On your Computer 1, remove the multi line comment on line 662. This is important to have the genesis block give your wallet some coins.
+2. On Computer 2, run the project in NetBeans on Computer 2. Create an Account if you do not have one already, then login. You will be prompted for whether you are computer 1 or 2, please type in "2" or "Computer 2". You have sucessfully set up Computer 2. 
 
-3. On the second computer keep everything as is.
-
-
-4. Run LoginPage.java and you can go and create an account then you will be able to login.
+3. Click Overview at the top of the Page to get an Overview of your Wallet. The balance, number of transactions and pending amount of coins being verified are displayed on this page.
 
 
-~~5. A QR Code will be created and found on your desktop. You can scan this code with your mobile device and your public and private key will be generated.~~
+4. Click Send at the top of the Page to send Coins. Fill in the public key of the opposite machine for "Send To", Enter a Label for your Transaction and enter how much you would like to send. Finally press send to send all of your Coins to the other other computer.
 
-6. With Computer 1, once you login you are greeted to the main page, the Wallet.
-
-
-8. On the overview tab you can view your public key and it will show in the output/terminal.
-
-
-10. Make sure you get Computer 2 public key and use that for Computer 1 to be able to send a transaction.
-
-
-12. On Computer 1, go to the send tab and use Computer 2 public key to send a transaction.
 
 ## Debugging
 Common Errors that were experienced in testing. Be mindful this project is still in early development.
 
-```Buid Failed on Intial Use ``` Try adding looking to see if there are errors in your java files especially CDClient.java and LoginPage.java. Look to see if the imports are working properly. If the imports are errored add the dependency for that specific import. 
+```Build Failed on Intial Use ``` Try adding looking to see if there are errors in your java files especially CDClient.java and LoginPage.java. Look to see if the imports are working properly. If the imports are errored add the dependency for that specific import. 
 
-```Socket Exception``` Currently looking for a solution
+```Connection: timeout ``` Make sure your IP address is correctly enterred for Step 2 with no spaces in between. If this persists try switching Computer 1 for Computer 2 and Computer 2 for Computer 1. 
 
 #### If you come across other errors plesae create a seperate pull request for future explorers
