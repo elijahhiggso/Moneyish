@@ -39,7 +39,7 @@ public class AppTest
     }
     
     // Test creating block
-    public void test_EmptyBlock() { 
+    public void test_NewBlock() { 
 
         Block temp = null;
         assertEquals(null, temp);
@@ -76,26 +76,30 @@ public class AppTest
     /*
     public void test_SendFunds() throws Exception {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        
         Wallet walletB = new Wallet();
         wallet = new Wallet();
         Wallet wallet = new Wallet();
+        
         genesisTransaction = new Transaction(wallet.getPublicKey(), wallet.getPublicKey(), 100f, null);
         genesisTransaction.generateSignature(wallet.getPrivateKey());	
         genesisTransaction.setTransactionId("1");
-        genesisTransaction.getOutputs().add(new TransactionOutput(genesisTransaction.getReciepient(), genesisTransaction.getSender(), genesisTransaction.getValue(), genesisTransaction.getTransactionId()));
-        Parameters.UTXOs.put(genesisTransaction.getOutputs().get(0).id, genesisTransaction.getOutputs().get(0)); 
+        genesisTransaction.getOutputs().add(new TransactionOutput(genesisTransaction.getReciepient(),genesisTransaction.getSender(), genesisTransaction.getValue(), genesisTransaction.getTransactionId()));
+        Parameters.UTXOs.put(genesisTransaction.getOutputs().get(0).id, genesisTransaction.getOutputs().get(0));
 
         Block genesis = new Block("0");
         genesis.addTransaction(genesisTransaction);
         addBlock(genesis.getHash(), genesis);
         Block block1 = new Block(genesis.getHash());
         block1.addTransaction(wallet.sendFunds(walletB.getPublicKey(), 40f));
-        float val = walletB.getBalance();
+        float val = wallet.getBalance();
 
         assertEquals(40f, val);
 
     }
-   */
+    */
+    
+
     // Test setValue() and getValue() methods
     public void test_setGetValueTransaction() {
         Transaction testT = new Transaction("p1", "p2", 10, null);

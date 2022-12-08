@@ -52,6 +52,8 @@ public class CDClientUI extends javax.swing.JFrame {
     public CDClientUI() {
         initComponents();
         balanceCoins.setText(String.valueOf(wallet.getBalance())+ " M");
+        transactionCount.setText(numOfTransactions()+"");
+
         //holder = new PlaceHolder(payToTextField, "Enter a Tech Tokens address (e.g. 2EE57059EE6D2AD31EADB385C2282D342971B308AE418)");
         //holder = new PlaceHolder(labelTextField, "Enter a label for this address to label the transaction");
     }
@@ -106,7 +108,6 @@ public class CDClientUI extends javax.swing.JFrame {
         overviewBtn = new javax.swing.JButton();
         transactionBtn = new javax.swing.JButton();
         sendBtn = new javax.swing.JButton();
-        receiveBtn = new javax.swing.JButton();
 
         jInternalFrame1.setVisible(true);
 
@@ -502,33 +503,22 @@ public class CDClientUI extends javax.swing.JFrame {
             }
         });
 
-        receiveBtn.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        receiveBtn.setText("Receive ");
-        receiveBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                receiveBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(overviewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86)
-                        .addComponent(transactionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(144, 144, 144)
-                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(193, 193, 193)
-                        .addComponent(receiveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(overviewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(315, 315, 315)
+                .addComponent(transactionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(185, 185, 185))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,8 +527,7 @@ public class CDClientUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(overviewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(transactionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(receiveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63)
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -556,11 +545,6 @@ public class CDClientUI extends javax.swing.JFrame {
         CardLayout card = (CardLayout)mainPanel.getLayout();
         card.show(mainPanel, "sendPanel");
     }//GEN-LAST:event_sendBtnActionPerformed
-
-    private void receiveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiveBtnActionPerformed
-        CardLayout card = (CardLayout)mainPanel.getLayout();
-        card.show(mainPanel, "receivePanel");
-    }//GEN-LAST:event_receiveBtnActionPerformed
 
     private void transactionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transactionBtnActionPerformed
         CardLayout card = (CardLayout)mainPanel.getLayout();
@@ -590,9 +574,11 @@ public class CDClientUI extends javax.swing.JFrame {
     private void sendCoinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendCoinBtnActionPerformed
         //server.connect(IP, 8889);
         // TODO add your handling code here:
+            
             float prevBalance = wallet.getBalance(); 
             Parameters.recipient = payToTextField.getText();
             int value = (Integer) amountSpinner.getValue();
+            unconfirmedCoins.setText(amountSpinner.getValue() + " M");
             float newVal = (float) value;
         if (computer == true){ //computer 2
             
@@ -609,8 +595,9 @@ public class CDClientUI extends javax.swing.JFrame {
                         Block temp = new Block(recentBlock.getHash());
                         temp.addTransaction(t);
                         recentBlock = temp;
+                        addBlock(recentBlock.getHash(),recentBlock);
                     } catch (Exception e){System.out.println(e.getMessage());}
-                    
+                    transactionCount.setText(numOfTransactions()+"");
                 }
             }
             
@@ -627,11 +614,14 @@ public class CDClientUI extends javax.swing.JFrame {
                         Block temp = new Block(recentBlock.getHash());
                         temp.addTransaction(t);
                         recentBlock = temp;
+                        addBlock(recentBlock.getHash(),recentBlock);
                     } catch (Exception e){System.out.println(e.getMessage());}
-                    
+                    transactionCount.setText(numOfTransactions()+"");
                 }     
         }
+        unconfirmedCoins.setText("0.00" + " M");
         balanceCoins.setText(String.valueOf(Wallet.balance)+ " M");
+        sendUpdate();
 //        /////////////////////////////////////////////////////////////server.getTransaction()
         //LinkedHashMap<String, Block> netParamBlockchain = gson.fromJson(server.getTransaction(), new TypeToken<LinkedHashMap<String, Block>>() {}.getType());
         /*if(netParamBlockchain.size() > Parameters.blockchain.size())
@@ -707,6 +697,7 @@ public class CDClientUI extends javax.swing.JFrame {
             }
          */   
         balanceCoins.setText(String.valueOf(Wallet.balance)+ " M");
+        transactionCount.setText(numOfTransactions()+"");
         /*
                 LinkedHashMap<String, Block> obj = new LinkedHashMap<String, Block>();
                 if (null != gson.fromJson(server.getBlockChain(), new TypeToken<LinkedHashMap<String, Block>>() {}.getType())){
@@ -740,23 +731,31 @@ public class CDClientUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-     Gson gson = new Gson();
-     
-     LinkedHashMap<String, TransactionOutput> obj = gson.fromJson(StringUtil.getJson(Parameters.UTXOs), new TypeToken<LinkedHashMap<String, TransactionOutput>>() {}.getType());
-
-        String id ="";
-        for (Map.Entry<String, TransactionOutput> entry : Parameters.UTXOs.entrySet())
+        Gson gson = new Gson();
+        String to ="Sent Transactions \n";
+        String from = "\n\nRecieved Transactions\n";
+        int tolength= to.length();
+        int fromlength= from.length();
+        System.out.println(StringUtil.getJson(Parameters.blockchain));
+        for (Map.Entry<String, Block> entry : Parameters.blockchain.entrySet())
         {  
-           if(entry.getValue().reciepient.equals(wallet.getPublicKey()))
+           if(entry.getValue().getTransactions().get(0).getReciepient().equals(Parameters.pubKey))
            {      
-               
-            id = id + "ID: " + entry.getValue().id + "\n";
-            id = id + "Amount: " + entry.getValue().value+ " CD" + "\n\n";
-           } 
+                from += "Received from: " + entry.getValue().getTransactions().get(0).getReciepient()+ "\nSent from:" + entry.getValue().getTransactions().get(0).getSender() + "\nValue: " + entry.getValue().getTransactions().get(0).getValue() +"\n\n";
+            
+           } else if (entry.getValue().getTransactions().get(0).getSender().equals(Parameters.pubKey)){
+                to += "Recieved by: " + entry.getValue().getTransactions().get(0).getReciepient()+ "\nSent from:" + entry.getValue().getTransactions().get(0).getSender() + "\nValue: " + entry.getValue().getTransactions().get(0).getValue() +"\n\n";
+           }
         }
-        lab.setText(id);
+        if (tolength == to.length()){
+            to+= "No Transactions Avaialable";
+        }
+        if (fromlength == from.length()){
+            from+= "No Transactions Avaialable";
+        }
+        lab.setText(to+from);
         lab.setEditable(false);
-       
+        transactionCount.setText(numOfTransactions()+"");
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -854,8 +853,7 @@ public class CDClientUI extends javax.swing.JFrame {
 		
 		System.out.println("Creating and Mining Genesis block... ");
 		recentBlock.addTransaction(genesisTransaction);
-		addBlock(recentBlock.getHash(),recentBlock);
-		/*
+		addBlock(recentBlock.getHash(),recentBlock);		/*
 		//testing
 		Block block1 = new Block(genesis.getHash());
 		System.out.println("\nWalletA's balance is: " + wallet.getBalance());
@@ -985,6 +983,17 @@ public class CDClientUI extends javax.swing.JFrame {
            SendToClientThread.message ="sendUpdate";
        }
     }
+    public static int numOfTransactions(){
+        int count=0;
+        for (Map.Entry<String, Block> entry : Parameters.blockchain.entrySet())
+        { 
+            if(entry.getValue().getTransactions().get(0).getReciepient().equals(Parameters.pubKey) || entry.getValue().getTransactions().get(0).getSender().equals(Parameters.pubKey)){
+                count++;
+            }
+        }
+        return count;
+         
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JSpinner amountSpinner;
@@ -1016,14 +1025,13 @@ public class CDClientUI extends javax.swing.JFrame {
     private javax.swing.JPanel overviewPanel;
     private javax.swing.JLabel payLabel;
     public static javax.swing.JTextField payToTextField;
-    private javax.swing.JButton receiveBtn;
     private javax.swing.JPanel receivePanel;
     private javax.swing.JPanel recentPanel;
     private javax.swing.JButton sendBtn;
     private javax.swing.JButton sendCoinBtn;
     private javax.swing.JPanel sendPanel;
     private javax.swing.JButton transactionBtn;
-    private javax.swing.JLabel transactionCount;
+    private static javax.swing.JLabel transactionCount;
     private javax.swing.JPanel transactionPanel;
     private javax.swing.JLabel unconfirmedCoins;
     private javax.swing.JLabel unconfirmedLabel;

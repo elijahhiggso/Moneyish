@@ -76,10 +76,21 @@ public class RecieveFromClientThread implements Runnable
         public static void update(Map <String, String> map){
            Gson gson = new Gson();
            Type empMapType = new TypeToken<Map<String, Block>>() {}.getType();
-           Parameters.blockchain = gson.fromJson(map.get("Blockchain"), empMapType);
+           
+           Map <String, Block> temp = gson.fromJson(map.get("Blockchain"), empMapType);
+           for (Map.Entry<String, Block> j : temp.entrySet()){
+                if(!Parameters.blockchain.containsKey(j.getKey())){
+                    Parameters.blockchain.put(j.getKey(), j.getValue());
+                }
+            }
            
            empMapType = new TypeToken<Map<String,TransactionOutput>>() {}.getType();
-           Parameters.UTXOs = gson.fromJson(map.get("UTXOs"), empMapType);
+           Map <String, TransactionOutput> tempTrans = gson.fromJson(map.get("UTXOs"), empMapType);
+           for (Map.Entry<String, TransactionOutput> j : tempTrans.entrySet()){
+                if(!Parameters.UTXOs.containsKey(j.getKey())){
+                    Parameters.UTXOs.put(j.getKey(), j.getValue());
+                }
+            }
         }
         public static String send(Map <String, String> map){
             System.out.println("Param pubKey:" +Parameters.pubKey + "\nIncoming pubKey:"+ map.get("pubKey"));

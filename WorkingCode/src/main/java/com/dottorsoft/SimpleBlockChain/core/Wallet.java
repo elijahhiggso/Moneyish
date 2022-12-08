@@ -73,7 +73,7 @@ public class Wallet {
             Wallet.balance+=value;
         }
 	public Transaction sendFunds(String _recipient,float value ) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		if(getBalance() < value) {
+		if(Wallet.balance < value) {
 			System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
 			return null;
 		}

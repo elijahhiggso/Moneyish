@@ -35,7 +35,7 @@ public class SendToClientThread implements Runnable
                     pwPrintWriter =new PrintWriter(new OutputStreamWriter(this.clientSock.getOutputStream()));//get outputstream
                     String msgToClientString = null;
                     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));//get userinput
-                    if (SendToClientThread.message == "update"){
+                    if (SendToClientThread.message == "sendUpdate"){
                         message = sendUpdate(message);
                     } else if(SendToClientThread.message =="send"){
                         System.out.println("message = send");

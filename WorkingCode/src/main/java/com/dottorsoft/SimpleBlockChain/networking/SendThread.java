@@ -39,7 +39,7 @@ public class SendThread implements Runnable{
                                         boolean done =false;
 					brinput = new BufferedReader(new InputStreamReader(System.in));
 					String msgtoServerString=null;
-                                        if (SendThread.message == "update"){
+                                        if (SendThread.message == "sendUpdate"){
                                            message = sendUpdate(message);
                                         } else if(SendThread.message =="send"){
                                             System.out.println("message = send");
@@ -73,7 +73,7 @@ public class SendThread implements Runnable{
             
             return gson.toJson(messages);
         }
-        public String send(){
+         public String send(){
             Gson gson = new Gson();
             HashMap <String, String> messages = new  HashMap<String, String> ();
             messages.put("message", "send");
