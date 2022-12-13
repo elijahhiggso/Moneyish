@@ -25,8 +25,9 @@ import com.dottorsoft.SimpleBlockChain.networking.SendToClientThread;
 import com.dottorsoft.SimpleBlockChain.util.Parameters;
 import com.dottorsoft.SimpleBlockChain.util.StringUtil;
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -726,7 +727,10 @@ public class CDClientUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, ("Your Public Key is: \n" + wallet.getPublicKey()));
+        //JOptionPane.showMessageDialog(null, ("Your Public Key is: \n" + wallet.getPublicKey()));
+        JTextArea text = new JTextArea(10,50);
+        text.setText("Your Public Key is: \n "+ wallet.getPublicKey());
+        JOptionPane.showMessageDialog(null, new JScrollPane(text), "My Public Key", JOptionPane.INFORMATION_MESSAGE);
         System.out.println(wallet.getPublicKey());
     }//GEN-LAST:event_jButton2ActionPerformed
 
